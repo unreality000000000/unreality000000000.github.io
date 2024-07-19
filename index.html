@@ -1,59 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>90's AI Chat</title>
+<title>90s Chatbot</title>
 <style>
-    /* ... Your existing CSS ... */
+  body {
+    background-color: #008080;
+    font-family: 'Courier New', Courier, monospace;
+    color: #ffff00;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    width: 600px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #000080;
+    border: 2px solid #00ffff;
+  }
+  .chat-window {
+    height: 300px;
+    background: #000000;
+    color: #00ff00;
+    padding: 10px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+  }
+  .input-area {
+    display: flex;
+  }
+  input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+  }
+  input[type="submit"] {
+    padding: 10px;
+  }
 </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="header">Welcome to the Retro AI Chat!</h1>
-        <div class="chat-box" id="chatBox">
-            <!-- Chat messages will appear here -->
-        </div>
-        <input type="text" class="input-box" id="userInput" placeholder="Type your message...">
-        <button class="submit-button" onclick="sendMessage()">Send</button>
-    </div>
+<div class="container">
+  <div class="chat-window">
+    <!-- Chat messages will appear here -->
+  </div>
+  <div class="input-area">
+    <input type="text" id="userInput" placeholder="Say something...">
+    <input type="submit" value="Send" onclick="sendMessage()">
+  </div>
+</div>
 
-    <script>
-        function sendMessage() {
-            var input = document.getElementById('userInput');
-            var chatBox = document.getElementById('chatBox');
-            var userMessage = input.value;
-            displayMessage('You: ' + userMessage);
+<script>
+// JavaScript to handle sending messages will go here
+function sendMessage() {
+  var input = document.getElementById('userInput').value;
+  // Code to interact with the OpenAI API and display responses
+}
+</script>
 
-            callOpenAIChatbotAPI(userMessage);
-
-            input.value = ''; // Clear the input after sending
-        }
-
-        function displayMessage(message) {
-            var chatBox = document.getElementById('chatBox');
-            var newMessage = document.createElement('p');
-            newMessage.textContent = message;
-            chatBox.appendChild(newMessage);
-        }
-
-        function callOpenAIChatbotAPI(message) {
-            fetch('YOUR_OPENAI_API_ENDPOINT', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer YOUR_OPENAI_API_KEY',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    prompt: message,
-                    max_tokens: 150
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                var aiText = data.choices[0].text.trim();
-                displayMessage('AI: ' + aiText);
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    </script>
 </body>
 </html>
