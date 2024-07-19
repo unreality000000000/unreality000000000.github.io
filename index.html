@@ -57,30 +57,32 @@ function sendMessage() {
   // Add the user's message to the chat window
   chatWindow.innerHTML += '<div>User: ' + userInput + '</div>';
 
-  // Prepare the data to send to the OpenAI API
-  var data = {
-    prompt: userInput,
-    max_tokens: 150
-  };
-
-  // Make an HTTP POST request to the OpenAI API
-  fetch('https://api.openai.com/v1/engines/gpt-3.5-turbo/completions'
-, {
+  // Make sure to replace 'YOUR_API_KEY' with your actual API key
+  fetch('https://api.openai.com/v1/engines/gpt-3.5-turbo/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer sk-proj-0m6KIvv67DilR38kbyoDT3BlbkFJ6wR28uXnmoxChxCZhzPj'
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify({
+      prompt: userInput,
+      max_tokens: 150
+    })
   })
   .then(response => response.json())
   .then(data => {
-    // Add the OpenAI API's response to the chat window
-    chatWindow.innerHTML += '<div>Bot: ' + data.choices[0].text.trim() + '</div>';
+    if (data.choices && data.choices.length > 0) {
+      // Add the OpenAI API's response to the chat window
+      chatWindow.innerHTML += '<div>Bot: ' + data.choices[0].text.trim() + '</div>';
+    } else {
+      // Handle any unexpected structure of the response
+      console.error('Unexpected API response:', data);
+    }
     // Scroll to the bottom of the chat window
     chatWindow.scrollTop = chatWindow.scrollHeight;
   })
   .catch((error) => {
+    // Handle any errors that occurred during the fetch
     console.error('Error:', error);
   });
 
