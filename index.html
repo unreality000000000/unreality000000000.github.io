@@ -64,7 +64,8 @@ function sendMessage() {
   };
 
   // Make an HTTP POST request to the OpenAI API
-  fetch('https://api.openai.com/v1/engines/gpt-3.5-turbo/completions', {
+  fetch('https://api.openai.com/v1/engines/gpt-3.5-turbo/completions'
+, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
