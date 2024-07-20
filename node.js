@@ -10,7 +10,7 @@ app.post('/message', async (req, res) => {
             inputs: userMessage,
         }, {
             headers: {
-                'Authorization': 'Bearer your-token'
+                'Authorization': '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'
             }
         });
         const botMessage = response.data.generated_text;
