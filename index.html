@@ -1,95 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>90s Chatbot</title>
-<style>
-  body {
-    background-color: #008080;
-    font-family: 'Courier New', Courier, monospace;
-    color: #ffff00;
-    margin: 0;
-    padding: 0;
-  }
-  .container {
-    width: 600px;
-    margin: 100px auto;
-    padding: 20px;
-    background-color: #000080;
-    border: 2px solid #00ffff;
-  }
-  .chat-window {
-    height: 300px;
-    background: #000000;
-    color: #00ff00;
-    padding: 10px;
-    overflow-y: scroll;
-    margin-bottom: 10px;
-  }
-  .input-area {
-    display: flex;
-  }
-  input[type="text"] {
-    flex: 1;
-    padding: 10px;
-    margin-right: 10px;
-  }
-  input[type="submit"] {
-    padding: 10px;
-  }
-</style>
+  <title>My Webchat</title>
 </head>
 <body>
-<div class="container">
-  <div class="chat-window" id="chatWindow">
-    <!-- Chat messages will appear here -->
-  </div>
-  <div class="input-area">
-    <input type="text" id="userInput" placeholder="Say something...">
-    <input type="submit" value="Send" onclick="sendMessage()">
-  </div>
-</div>
-
-<script>
-function sendMessage() {
-  var userInput = document.getElementById('userInput').value;
-  var chatWindow = document.getElementById('chatWindow');
-
-  // Add the user's message to the chat window
-  chatWindow.innerHTML += '<div>User: ' + userInput + '</div>';
-
-  // Make sure to replace 'YOUR_API_KEY' with your actual API key
-  fetch('https://api.openai.com/v1/engines/gpt-3.5-turbo/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer sk-proj-0m6KIvv67DilR38kbyoDT3BlbkFJ6wR28uXnmoxChxCZhzPj'
-    },
-    body: JSON.stringify({
-      prompt: userInput,
-      max_tokens: 150
-    })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.choices && data.choices.length > 0) {
-      // Add the OpenAI API's response to the chat window
-      chatWindow.innerHTML += '<div>Bot: ' + data.choices[0].text.trim() + '</div>';
-    } else {
-      // Handle any unexpected structure of the response
-      console.error('Unexpected API response:', data);
-    }
-    // Scroll to the bottom of the chat window
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-  })
-  .catch((error) => {
-    // Handle any errors that occurred during the fetch
-    console.error('Error:', error);
-  });
-
-  // Clear the input field
-  document.getElementById('userInput').value = '';
-}
-</script>
-
+  [...]
+  <script src="https://cdn.botpress.cloud/webchat/v2/inject.js"></script>
+  <script src="https://mediafiles.botpress.cloud/52345432-5432543-5435-435545434/webchat/v2/config.js"></script>
 </body>
 </html>
